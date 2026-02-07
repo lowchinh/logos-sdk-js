@@ -26,7 +26,7 @@ import { LogosClient } from '@aidoll/logos-sdk';
 const client = new LogosClient({
   serverUrl: 'http://localhost:8000',
   apiKey: 'your-api-key',
-  mode: 'child', // 'child' | 'senior'
+  mode: 'trading', 
 });
 
 // Listen for AI text responses
@@ -55,7 +55,7 @@ client.startListening();
 ### Configuration (LogosClientOptions)
 - `serverUrl`: Backend API URL.
 - `apiKey`: Authentication key.
-- `mode`: Persona mode ('child' or 'senior').
+- `mode`: Persona mode ('trading').
 - `vad`: VAD configuration (sensitivity, timeout, etc.).
 
 ### Methods
