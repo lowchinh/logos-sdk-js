@@ -64,8 +64,8 @@ client.startListening();
 - `startListening()`: Starts microphone monitoring.
 - `stopListening()`: Stops microphone monitoring.
 - `sendText(text)`: Sends a plain text command.
-- `getChatHistory(options)`: **New!** Fetches chat history via HTTP.
-- `getDailySummary(options)`: **New!** Fetches daily summary/report via HTTP.
+- `getChatHistory(options)`:  Fetches chat history via HTTP.
+- `getDailySummary(options)`:  Fetches daily summary/report via HTTP.
 
 ## Advanced Usage
 
