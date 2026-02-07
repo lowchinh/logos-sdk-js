@@ -245,7 +245,72 @@ export class LogosClient {
     if (settings.vadTimeout !== undefined) this.vadConfig.timeout = settings.vadTimeout;
   }
 
+  /**
+   * Fetch chat history via HTTP
+   */
+  async getChatHistory(options: { 
+    deviceId?: string, 
+    date?: string, 
+    limit?: number, 
+    mode?: PersonaMode 
+  } = {}): Promise<import('./types').ChatMessage[]> {
+    const deviceId = options.deviceId || this.deviceId;
+    const url = new URL(`${this.serverUrl}/api/guardian/history`);
+    url.searchParams.append('deviceId', deviceId);
+    if (options.date) url.searchParams.append('date', options.date);
+    if (options.limit) url.searchParams.append('limit', options.limit.toString());
+    if (options.mode || this.mode) url.searchParams.append('mode', options.mode || this.mode);
+
+    const response = await fetch(url.toString(), {
+      headers: this.getAuthHeaders()
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch history: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.messages || [];
+  }
+
+  /**
+   * Fetch daily summary via HTTP
+   */
+  async getDailySummary(options: {
+    deviceId?: string,
+    date?: string,
+    mode?: PersonaMode,
+    force?: boolean,
+    checkUpdate?: boolean
+  } = {}): Promise<import('./types').DailySummary> {
+    const deviceId = options.deviceId || this.deviceId;
+    const url = new URL(`${this.serverUrl}/api/guardian/summary`);
+    url.searchParams.append('deviceId', deviceId);
+    if (options.date) url.searchParams.append('date', options.date);
+    if (options.mode || this.mode) url.searchParams.append('mode', options.mode || this.mode);
+    if (options.force) url.searchParams.append('force', 'true');
+    if (options.checkUpdate) url.searchParams.append('checkUpdate', 'true');
+
+    const response = await fetch(url.toString(), {
+      headers: this.getAuthHeaders()
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch summary: ${response.statusText}`);
+    }
+
+    return await response.json();
+  }
+
   // ========== Private Methods ==========
+
+  private getAuthHeaders(): Record<string, string> {
+    const headers: Record<string, string> = {};
+    if (this.apiKey) {
+      headers['x-api-key'] = this.apiKey;
+    }
+    return headers;
+  }
 
   private setStatus(status: LogosStatus): void {
     if (this._status !== status) {

@@ -88,6 +88,33 @@ export interface SettingsEventData {
 }
 
 /**
+ * Chat Message Structure
+ */
+export interface ChatMessage {
+  id: number;
+  role: 'user' | 'ai' | 'system';
+  content: string;
+  created_at: string;
+  mode: PersonaMode;
+  intent?: string;
+}
+
+/**
+ * Daily Summary Structure
+ */
+export interface DailySummary {
+  device_id: string;
+  summary_date: string;
+  mode: PersonaMode;
+  conversation_count: number;
+  top_topics: string[];
+  mood_summary: string;
+  overall_summary: string;
+  has_alerts: boolean;
+  alert_count: number;
+}
+
+/**
  * Event Type Mappings
  */
 export interface LogosEvents {

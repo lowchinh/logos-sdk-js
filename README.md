@@ -64,6 +64,21 @@ client.startListening();
 - `startListening()`: Starts microphone monitoring.
 - `stopListening()`: Stops microphone monitoring.
 - `sendText(text)`: Sends a plain text command.
+- `getChatHistory(options)`: **New!** Fetches chat history via HTTP.
+- `getDailySummary(options)`: **New!** Fetches daily summary/report via HTTP.
+
+## Advanced Usage
+
+### Fetching History & Summaries
+Now you can fetch historical data directly using the SDK:
+
+```typescript
+// Get last 20 messages
+const messages = await client.getChatHistory({ limit: 20 });
+
+// Get today's summary
+const summary = await client.getDailySummary();
+```
 
 ### Events
 - `connected`: Successfully connected.
