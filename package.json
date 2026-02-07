@@ -1,0 +1,32 @@
+{
+  "name": "@aidoll/logos-sdk",
+  "version": "1.0.0",
+  "description": "Logos SDK for frontend integration",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "logos",
+    "sdk",
+    "ai",
+    "websocket",
+    "vad"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}
